@@ -13,11 +13,16 @@ return new class extends Migration
     {
         Schema::create('wallets', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->decimal('balance', 10, 2)->default(0.00);
+            $table->string('user_id');
+            $table->string('wallet_id')->unique();
+            $table->decimal('balance', 12, 2)->default(0.00);
+            $table->boolean('is_active')->default(true);
+            $table->softDeletes();
             $table->timestamps();
-        });
 
+            // Foreign key constraint
+            $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
+        });
     }
 
     /**
