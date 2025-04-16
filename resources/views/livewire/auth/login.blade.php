@@ -20,7 +20,7 @@
                     @endif
 
                     <!-- Login Form -->
-                    <form wire:submit.prevent="login" class="js-validation-signin">
+                    <form wire:submit.prevent="login">
                         <div class="block block-themed block-rounded block-fx-shadow">
                             <div class="block-header bg-gd-dusk">
                                 <h3 class="block-title">Please Sign In</h3>
@@ -36,24 +36,28 @@
                                         placeholder="Enter your password">
                                     <label class="form-label" for="login-password">Password</label>
                                 </div>
-                                <div class="row">
-                                    <div class="col-sm-6 d-sm-flex align-items-center push">
-                                        <div class="form-check">
-                                            <input wire:model="remember" class="form-check-input" type="checkbox"
-                                                id="login-remember-me">
-                                            <label class="form-check-label" for="login-remember-me">Remember Me</label>
-                                        </div>
+                                <div class="d-flex justify-content-between align-items-center mb-4">
+                                    <div class="form-check">
+                                        <input wire:model="remember" class="form-check-input" type="checkbox" id="login-remember-me">
+                                        <label class="form-check-label" for="login-remember-me">Remember Me</label>
                                     </div>
-                                    <div class="col-sm-6 text-sm-end push">
-                                        <button type="submit" class="btn btn-lg btn-alt-primary fw-medium">
-                                            Sign In
-                                        </button>
-                                    </div>
+                                    <a class="fs-sm text-primary" href="{{ route('password.request') }}">
+                                        Forgot Password?
+                                    </a>
                                 </div>
+                                <div class="text-end">
+                                    <button type="submit" class="btn btn-lg btn-alt-primary fw-medium">
+                                        Sign In
+                                    </button>
+                                </div>
+                                <br>
+                            </div>
+                            <div class="block-content block-content-full bg-body-light text-center">
+                                <span class="text-muted me-2">No account yet?</span>
+                                <a class="fw-semibold" href="{{ route('register') }}">Sign up</a>
                             </div>
                         </div>
                     </form>
-
                 </div>
             </div>
         </div>

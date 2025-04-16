@@ -15,6 +15,7 @@ class Wallet extends Model
         'wallet_id',
         'balance',
         'is_active',
+        'currency'
     ];
 
     protected $casts = [
