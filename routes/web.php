@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SocialController;
 use App\Livewire\Auth\Login;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Admin\Dashboard as AdminDashboard;
@@ -16,6 +17,9 @@ Route::get('register', Register::class)->name('register');
 Route::get('forgot-password', ForgetPassword::class)->name('password.request');
 Route::get('reset-password/{token}', ChangePassword::class)
     ->name('password.reset');
+
+Route::get('auth/google', [SocialController::class, 'redirectToGoogle'])->name('auth.google');
+Route::get('auth/google/callback', [SocialController::class, 'handleGoogleCallback']);
 
 
 // Admin dashboard route

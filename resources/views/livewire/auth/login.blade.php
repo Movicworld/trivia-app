@@ -45,11 +45,18 @@
                                         Forgot Password?
                                     </a>
                                 </div>
-                                <div class="text-end">
+                                <div class="text-center mb-3">
+                                    <a href="{{ route('auth.google') }}" class="btn btn-danger w-100">
+                                        <i class="fab fa-google me-2"></i> Sign in with Google
+                                    </a>
+                                </div>
+
+                                <div class="text-center">
                                     <button type="submit" class="btn btn-lg btn-alt-primary fw-medium">
                                         Sign In
                                     </button>
                                 </div>
+
                                 <br>
                             </div>
                             <div class="block-content block-content-full bg-body-light text-center">

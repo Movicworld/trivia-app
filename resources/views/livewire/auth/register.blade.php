@@ -59,12 +59,18 @@
                           <label class="form-check-label" for="signup-terms">I agree to Terms</label>
                         </div>
                       </div>
-                      <div class="col-sm-6 text-sm-end push">
-                        <button type="submit" class="btn btn-lg btn-alt-primary fw-semibold">
-                          Create Account
-                        </button>
-                      </div>
+                      <div class="text-center mb-3">
+                        <a href="{{ route('auth.google') }}" class="btn btn-danger w-100">
+                            <i class="fab fa-google me-2"></i> Sign in with Google
+                        </a>
                     </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-lg btn-alt-primary fw-semibold">
+                            Create Account
+                        </button>
+                    </div>
+                </div>
+                <br>
                   </div>
                   <div class="block-content block-content-full bg-body-light text-center">
                     <span class="text-muted me-2">Already have an account?</span>
