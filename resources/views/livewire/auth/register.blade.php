@@ -1,7 +1,7 @@
 @extends('layouts.guest')
 
 @section('content')
-
+{{-- @livewire('auth.register') --}}
 <div id="page-container" class="main-content-boxed">
     <main id="main-container">
       <div class="bg-body-dark">

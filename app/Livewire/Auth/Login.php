@@ -2,57 +2,62 @@
 
 namespace App\Livewire\Auth;
 
+use App\Livewire\Forms\LoginForm;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
-use Livewire\Redirector;
+use Livewire\Attributes\Validate;
 
 class Login extends Component
 {
 
-    public $email, $password, $remember = false;
-    public function login()
+    public LoginForm $form;
+    public function save()
     {
-        // Log the received data
-        Log::info('Login attempt', ['email' => $this->email]);
+        try {
+            $this->validate();
+            // $this->validate([
+            //     'email' => 'required|string|email',
+            //     'password' => 'required|string',
+            // ]);
 
-        $this->validate([
-            'email' => 'required|string|email',
-            'password' => 'required|string',
-        ]);
+            // // Log login data for debugging
+            // logger('Login data:', [
+            //     'email' => $this->email,
+            //     'password' => $this->password,
+            //     'remember' => $this->remember,
+            // ]);
 
-        // Log login data for debugging
-        logger('Login data:', [
-            'email' => $this->email,
-            'password' => $this->password,
-            'remember' => $this->remember,
-        ]);
+            // Attempt login
+            if (Auth::attempt([
+                'email' => $this->only('email'),
+                'password' => $this->only('password'),
+            ], $this->only('remember'))) {
+                session()->flash('message', 'Login successful for email: ' . $this->email);
+                session()->regenerate();
 
-        // Attempt login
-        if (Auth::attempt([
-            'email' => $this->email,
-            'password' => $this->password
-        ], $this->remember)) {
-            session()->flash('message', 'Login function triggered with email: ' . $this->email);
-            session()->regenerate();
+                $user = Auth::user();
 
-            $user = Auth::user();
+                // Redirect based on role
+                if ($user->hasRole('admin')) {
+                    return redirect()->route('admin.dashboard');
+                } elseif ($user->hasRole('user')) {
+                    return redirect()->route('user.dashboard');
+                }
 
-            // Redirect based on role
-            if ($user->hasRole('admin')) {
-                return redirect()->intended(route('admin.dashboard'));
-            } elseif ($user->hasRole('user')) {
-                return redirect()->intended(route('user.dashboard'));
+                return redirect()->intended(route('login'));
             }
 
-            return redirect()->intended(route('dashboard'));
+            throw ValidationException::withMessages([
+                'email' => ['The provided credentials are incorrect.'],
+            ]);
+        } catch (\Exception $e) {
+            // Handle the exception and redirect with an error message
+            return redirect()->route('login')->with('message', 'The provided credentials are incorrect.');
         }
-
-        throw ValidationException::withMessages([
-            'email' => ['The provided credentials are incorrect.'],
-        ]);
     }
+
 
 
     public function render()

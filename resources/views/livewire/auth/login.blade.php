@@ -20,26 +20,26 @@
                     @endif
 
                     <!-- Login Form -->
-                    <form wire:submit.prevent="login">
+                    <form wire:submit="save">
                         <div class="block block-themed block-rounded block-fx-shadow">
                             <div class="block-header bg-gd-dusk">
                                 <h3 class="block-title">Please Sign In</h3>
                             </div>
                             <div class="block-content">
                                 <div class="form-floating mb-4">
-                                    <input wire:model="email" type="text" class="form-control" id="login-email"
+                                    <input type="text" wire:model="email" class="form-control" id="email"
                                         placeholder="Enter your email">
-                                    <label class="form-label" for="login-email">Email</label>
+                                    <label class="form-label" for="email">Email</label>
                                 </div>
                                 <div class="form-floating mb-4">
-                                    <input wire:model="password" type="password" class="form-control" id="login-password"
+                                    <input type="password" wire:model="password" class="form-control" id="password"
                                         placeholder="Enter your password">
-                                    <label class="form-label" for="login-password">Password</label>
+                                    <label class="form-label" for="password">Password</label>
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center mb-4">
                                     <div class="form-check">
-                                        <input wire:model="remember" class="form-check-input" type="checkbox" id="login-remember-me">
-                                        <label class="form-check-label" for="login-remember-me">Remember Me</label>
+                                        <input type="checkbox" wire:model="remember" class="form-check-input" type="checkbox" id="remember">
+                                        <label class="form-check-label" for="remember">Remember Me</label>
                                     </div>
                                     <a class="fs-sm text-primary" href="{{ route('password.request') }}">
                                         Forgot Password?

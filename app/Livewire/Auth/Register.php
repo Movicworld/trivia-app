@@ -45,9 +45,9 @@ class Register extends Component
             Auth::login($user);
 
             return redirect()->route('user.dashboard');
-        } catch (Throwable $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
-            throw $e;
+            return redirect()->route('register')->with('message',  $e->getMessage());
         }
     }
 

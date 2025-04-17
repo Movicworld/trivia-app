@@ -1,3 +1,11 @@
-<div>
-    {{-- Close your eyes. Count to one. That is how long forever feels. --}}
-</div>
+{{-- resources/views/user/dashboard.blade.php --}}
+@extends('layouts.user')
+
+@section('title', 'Dashboard')
+
+@section('content')
+    <div class="content">
+        <h2 class="fw-bold">Dashboard</h2>
+        <p>Welcome to Trivi, {{ Auth::user()->name }}!</p>
+    </div>
+@endsection
