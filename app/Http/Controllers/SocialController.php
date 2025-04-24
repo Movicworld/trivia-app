@@ -30,7 +30,9 @@ class SocialController extends Controller
                 ]
             );
 
-            $user->assignRole('user');
+            if (!$user->roles()->exists()) {
+                $user->assignRole('user');
+            }
 
             Wallet::firstOrCreate([
                 'user_id' => $user->user_id,
@@ -38,13 +40,20 @@ class SocialController extends Controller
                 'is_active' => true,
                 'currency' => 'NGN',
             ]);
+
             Auth::login($user);
 
-            return redirect()->route('user.dashboard');
+            if ($user->hasRole('admin')) {
+                return redirect()->route('admin.dashboard');
+            } elseif ($user->hasRole('user')) {
+                return redirect()->route('user.dashboard');
+            }
 
+            return redirect()->route('login')->with('message', 'User role not recognized.');
 
         } catch (\Exception $e) {
             return redirect()->route('login')->with('message', 'Google login failed.');
         }
     }
+
 }

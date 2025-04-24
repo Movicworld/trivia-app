@@ -13,6 +13,10 @@ use App\Livewire\Auth\Register;
 use App\Livewire\Admin\Dashboard as AdminDashboard;
 use App\Livewire\User\Dashboard as UserDashboard;
 
+use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
+use Illuminate\Support\Str;
+
 
 Route::view('/', 'home')->name('dashboard');
 
@@ -43,10 +47,11 @@ Route::middleware(['auth'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     // Wallet Route
-    Route::get('/wallet', Wallet::class)->name('user.wallet');
+    Route::get('/wallet', Wallet::class)->name('wallet');
 
     // Game Route
-    Route::get('/game', Game::class)->name('user.games');
+    Route::get('/game', Game::class)->name('games');
+    Route::get('/user', Game::class)->name('users');
 });
 
 
@@ -63,3 +68,30 @@ Route::get('/role', function () {
     return response()->json(['message' => 'User not found'], 404);
 });
 
+Route::get('create-admin', function () {
+    $email = 'victorolumorakinyo@gmail.com';
+
+    $user = User::firstOrCreate(
+        ['email' => $email],
+        [
+            'name' => 'Victor Morakinyo',
+            'password' => Hash::make('password'), // change this to something more secure
+            'email_verified_at' => now(),
+            'remember_token' => Str::random(10),
+        ]
+    );
+
+    // Ensure the 'admin' role exists
+    $role = Role::firstOrCreate(['name' => 'admin']);
+
+    // Assign the role if not already assigned
+    if (!$user->hasRole('admin')) {
+        $user->assignRole('admin');
+    }
+
+    return response()->json([
+        'message' => 'Admin user ensured',
+        'user' => $user,
+        'roles' => $user->getRoleNames()
+    ]);
+});

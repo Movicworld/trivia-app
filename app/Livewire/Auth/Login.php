@@ -33,7 +33,7 @@ class Login extends Component
             if (Auth::attempt([
                 'email' => $this->only('email'),
                 'password' => $this->only('password'),
-            ], $this->only('remember'))) {
+            ],)) {
                 session()->flash('message', 'Login successful for email: ' . $this->email);
                 session()->regenerate();
 

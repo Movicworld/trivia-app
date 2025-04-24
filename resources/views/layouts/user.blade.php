@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>@yield('title', 'Trivia User Panel')</title>
+    <title>@yield('title', 'Trivia Panel')</title>
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="{{ asset('assets/media/favicons/favicon.png') }}">

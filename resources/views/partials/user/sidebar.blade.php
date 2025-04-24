@@ -19,13 +19,13 @@
                 </a>
             </li>
             <li class="nav-main-item">
-                <a class="nav-main-link {{ request()->routeIs('user.games') ? 'active' : '' }}" href="{{ route('user.games') }}">
+                <a class="nav-main-link {{ request()->routeIs('games') ? 'active' : '' }}" href="{{ route('games') }}">
                     <i class="nav-main-link-icon fa fa-gamepad"></i>
                     <span class="nav-main-link-name">Games</span>
                 </a>
             </li>
             <li class="nav-main-item">
-                <a class="nav-main-link {{ request()->routeIs('user.wallet') ? 'active' : '' }}" href="{{ route('user.wallet') }}">
+                <a class="nav-main-link {{ request()->routeIs('wallet') ? 'active' : '' }}" href="{{ route('wallet') }}">
                     <i class="nav-main-link-icon fa fa-wallet"></i>
                     <span class="nav-main-link-name">Wallet</span>
                 </a>
